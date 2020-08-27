@@ -2,28 +2,15 @@
 
 
 session_start();
+//$_SESSION = [];
+require_once('database.php');
 
-try
-{
-  $myDb = new PDO(
-      'mysql:host=localhost;dbname=super123',
-      "root",
-      "Super",
-      array(
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_EMULATE_PREPARES => false
-      )
-  );
-}
-catch(Exception $e)
-{
-        die('Erreur : '.$e->getMessage());
-}
 //-------------------------------------------------
 
 
 if(!isset($_SESSION['pseudo'])){
     $_SESSION['pseudo'] = "";
+    $_SESSION['isconnected'] = false;
 
   }
 $message = "";
@@ -47,7 +34,9 @@ $message = "";
           if($pseudo == $res['pseudo'] && $password == $res['password']){
           
             $_SESSION['pseudo'] = $pseudo;
-            header("Location: main.php");
+            $_SESSION['isconnected'] = true;
+            header("Location: index.php");
+            
 
           }
           else{
@@ -87,7 +76,7 @@ if($pseudo == null && $password == null){
     <label for="password">Password</label>
     <input type="password" name="password" class="form-control">
     <button type="submit" class="btn btn-success">Se connecter</button>
-<a href="insertion.php" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Créer un compte</a>
+<a href="insertion.php" class="btn btn-primary btn active" role="button" aria-pressed="true">Créer un compte</a>
 </div>
     </form>
 </body>

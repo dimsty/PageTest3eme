@@ -1,22 +1,9 @@
 <?php 
 
 session_start();
-try
-{
-  $myDb = new PDO(
-      'mysql:host=localhost;dbname=super123',
-      "root",
-      "Super",
-      array(
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_EMULATE_PREPARES => false
-      )
-  );
-}
-catch(Exception $e)
-{
-        die('Erreur : '.$e->getMessage());
-}
+
+require_once('database.php');
+
 echo "<div class=\"alert alert-primary\" role=\"alert\">";
 echo "Bonjour ".$_SESSION['pseudo'];
 echo "</div>";
@@ -37,6 +24,15 @@ echo "</div>";
 </head>
 <body>
   <form action="logout.php">
+  <div class="jumbotron">
+  <h1 class="display-4">Bienvenue a votre compte</h1>
+  <p class="lead">Sur cette page vous pouvez voir les détails de votre compte</p>
+  <hr class="my-4">
+  <p>Appuyez sur ce bouton pour changer vos informations</p>
+  <a class="btn btn-primary btn-lg" href="modifier.php" role="button">Changer vos parametres</a>
+  <a class="btn btn-primary btn-lg" href="index.php" role="button">Revenir en arrière</a>
+
+</div>
   <button type="submit" class="btn btn-warning" >Se déconnecter</button>
 
   </form>

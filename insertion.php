@@ -2,22 +2,8 @@
 
 session_start();
 
-try
-{
-  $myDb = new PDO(
-      'mysql:host=localhost;dbname=super123',
-      "root",
-      "Super",
-      array(
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_EMULATE_PREPARES => false
-      )
-  );
-}
-catch(Exception $e)
-{
-        die('Erreur : '.$e->getMessage());
-}
+require_once('database.php');
+
 //-------------------------------------------------
 
 $action = filter_input(INPUT_POST,"action");
@@ -58,6 +44,12 @@ else{
      echo "Compte crée avec succés";
      echo "</div>";
 
+     sleep(1.5);
+     header("Location: connection.php");
+
+
+
+
 }
    
 if($action == "creer"){
@@ -97,8 +89,9 @@ echo $message;
     <input type="password" name="password" class="form-control" required>
     <label for="password">Veuillez le réecrire</label>
     <input type="password" name="password2" class="form-control" required>
-    <button type="submit" name="action" value="creer" class="btn btn-success">Créer</button>
-<a href="connection.php" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Se connecter</a>
+    <button type="submit" name="action" value="creer" class="btn btn-success">Créer le compte</button>
+    <a class="btn btn-primary btn" href="connection.php" role="button">Revenir en arrière</a>
+
 </div>
 
     </form>
